@@ -1,0 +1,243 @@
+<ngb-toast class="bg-danger text-white" [autohide]="true" [delay]="3000" *ngIf="invalidTimeToaster">
+  {{toastMessage}}
+</ngb-toast>
+<div class="container-fluid p-3">
+  <div class="wrapper p-3">
+    <div class="row">
+      <div class="col-12 col-md-6 col-lg-4">
+
+        <div class="p-2">
+          <input type="file" class="btn btn-danger" accept="image/*" (change)="onFileChanged($event)" />
+        </div>
+      </div>
+
+      <div class="col-12 col-md-6 col-lg-8">
+        <form #userForm="ngForm" name="form" [appPasswordMatch]="['password', 'confirm_password']"  (ngSubmit)="userForm.form.valid && onSubmit()" novalidate>
+          <div class="row">
+            <div class="col-12 col-md-2">
+              <div class="form-group">
+                <label>Title</label>
+                <select #title="ngModel" name="title" [(ngModel)]="user.name.title"
+                  [ngClass]="{ 'is-invalid': userForm.submitted &&  title.invalid }" required class="form-control">
+                  <option>Mr</option>
+                  <option>Ms</option>
+                  <option>Mrs</option>
+
+                </select>
+                <div *ngIf="userForm.submitted && title.invalid" class="invalid-feedback">
+                  <div *ngIf="title.errors.required">title is required</div>
+                </div>
+              </div>
+            </div>
+
+
+            <div class="col-12 col-md-5">
+              <div class="form-group">
+                <label for="exampleInputEmail1">Name</label>
+                <input type="text" class="form-control" aria-describedby="emailHelp" placeholder="Enter name"
+                  #first="ngModel" name="first" [(ngModel)]="user.name.first"
+                  [ngClass]="{ 'is-invalid': userForm.submitted &&  first.invalid }" required />
+                <div *ngIf="userForm.submitted && first.invalid" class="invalid-feedback">
+                  <div *ngIf="first.errors.required">first name is required</div>
+                </div>
+              </div>
+            </div>
+            <div class="col-12 col-md-5">
+
+              <div class="form-group">
+                <label for="exampleInputEmail1">Last</label>
+                <input type="text" class="form-control" aria-describedby="emailHelp" placeholder="Enter name"
+                  #last="ngModel" name="last" [(ngModel)]="user.name.last"
+                  [ngClass]="{ 'is-invalid': userForm.submitted && last.invalid }" required />
+                <div *ngIf="userForm.submitted && last.invalid" class="invalid-feedback">
+                  <div *ngIf="last.errors.required">last is required</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-12 col-md-4">
+              <div class="form-group">
+                <label>DOB</label>
+                <div class="input-group">
+                  <input class="form-control" placeholder="yyyy-mm-dd" name="dob" [(ngModel)]="user.dob" ngbDatepicker
+                    #dob_date="ngbDatepicker" #dob="ngModel"
+                    [ngClass]="{ 'is-invalid': userForm.submitted && dob.invalid }" required />
+                  <div class="input-group-append">
+                    <button class="btn btn-outline-secondary calendar" (click)="dob_date.toggle()"
+                      type="button"></button>
+                  </div>
+                  <div *ngIf="userForm.submitted && dob.invalid" class="invalid-feedback">
+                    <div *ngIf="dob.errors.required">start date is required</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+            <div class="col-12 col-md-4">
+
+              <div class="form-group">
+                <label for="exampleInputEmail1">cell</label>
+                <input type="text" class="form-control" aria-describedby="emailHelp" placeholder="Enter cell"
+                  #cell="ngModel" name="cell" [(ngModel)]="user.cell" />
+              </div>
+            </div>
+
+
+            <div class="col-12 col-md-4">
+
+              <div class="form-group">
+                <label for="exampleInputEmail1">phone</label>
+                <input type="text" class="form-control" aria-describedby="emailHelp" placeholder="Enter phone"
+                  #phone="ngModel" name="phone" [(ngModel)]="user.phone"
+                  [ngClass]="{ 'is-invalid': userForm.submitted && phone.invalid }" required />
+                <div *ngIf="userForm.submitted && phone.invalid" class="invalid-feedback">
+                  <div *ngIf="phone.errors.required">phone is required</div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+
+
+
+          <div class="row">
+            <div class="col-12 col-md-3">
+              <div class="form-group">
+                <label>Street</label>
+                <input type="text" class="form-control" aria-describedby="emailHelp" placeholder="Enter street"
+                  #street="ngModel" name="street" [(ngModel)]="user.location.street"
+                  [ngClass]="{ 'is-invalid': userForm.submitted &&  street.invalid }" required />
+                <div *ngIf="userForm.submitted && street.invalid" class="invalid-feedback">
+                  <div *ngIf="street.errors.required">street is required</div>
+                </div>
+              </div>
+            </div>
+
+
+            <div class="col-12 col-md-3">
+              <div class="form-group">
+                <label for="exampleInputEmail1">City</label>
+                <input type="text" class="form-control" aria-describedby="emailHelp" placeholder="Enter city"
+                  #city="ngModel" name="city" [(ngModel)]="user.location.city"
+                  [ngClass]="{ 'is-invalid': userForm.submitted &&  city.invalid }" required />
+                <div *ngIf="userForm.submitted && city.invalid" class="invalid-feedback">
+                  <div *ngIf="city.errors.required">city name is required</div>
+                </div>
+              </div>
+            </div>
+            <div class="col-12 col-md-3">
+
+              <div class="form-group">
+                <label for="exampleInputEmail1">state</label>
+                <input type="text" class="form-control" aria-describedby="emailHelp" placeholder="Enter name"
+                  #state="ngModel" name="state" [(ngModel)]="user.location.state"
+                  [ngClass]="{ 'is-invalid': userForm.submitted && state.invalid }" required />
+                <div *ngIf="userForm.submitted && state.invalid" class="invalid-feedback">
+                  <div *ngIf="state.errors.required">state is required</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-12 col-md-3">
+
+              <div class="form-group">
+                <label for="exampleInputEmail1">zipcode</label>
+                <input type="text" class="form-control" aria-describedby="emailHelp" placeholder="Enter zip"
+                  #zip="ngModel" name="zip" [(ngModel)]="user.location.zip"
+                  [ngClass]="{ 'is-invalid': userForm.submitted && zip.invalid }" required />
+                <div *ngIf="userForm.submitted && zip.invalid" class="invalid-feedback">
+                  <div *ngIf="zip.errors.required">zipcode is required</div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+
+
+
+          <div class="row">
+
+            <div class="col-12 col-md-6">
+
+              <div class="form-group">
+                <label for="exampleInputEmail1">email</label>
+                <input type="email" class="form-control" aria-describedby="emailHelp" placeholder="Enter email"
+                  #email="ngModel" name="email" [(ngModel)]="user.email"
+                  [ngClass]="{ 'is-invalid': userForm.submitted && email.invalid }"
+                  pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required />
+                <div *ngIf="userForm.submitted && email.invalid" class="invalid-feedback">
+                  <div *ngIf="email.errors.required">email is required</div>
+                </div>
+                <div *ngIf="userForm.submitted && email.invalid" class="invalid-feedback">
+                  <div *ngIf="email.errors?.pattern">This is not a valid email</div>
+                </div>
+              </div>
+            </div>
+
+
+            <div class="col-12 col-md-6">
+
+              <div class="form-group">
+                <label for="exampleInputEmail1">username</label>
+                <input type="text" class="form-control" aria-describedby="emailHelp" placeholder="Enter username"
+                  #username="ngModel" name="username" [(ngModel)]="user.username"
+                  [ngClass]="{ 'is-invalid': userForm.submitted && username.invalid }" required />
+                <div *ngIf="userForm.submitted && username.invalid" class="invalid-feedback">
+                  <div *ngIf="username.errors.required">username is required</div>
+                </div>
+              </div>
+            </div>
+
+
+          </div>
+
+
+          <div class="row">
+
+            <div class="col-12 col-md-6">
+
+              <div class="form-group">
+                <label for="exampleInputEmail1">password</label>
+                <input type="password" class="form-control" aria-describedby="emailHelp" placeholder="Enter password"
+                  #password="ngModel" name="password" [(ngModel)]="user.password" minlength="6" maxlength="15"
+                  [ngClass]="{ 'is-invalid': userForm.submitted && password.invalid }" required />
+                <div *ngIf="userForm.submitted && password.invalid" class="invalid-feedback">
+                  <div *ngIf="password.errors.required">password is required</div>
+                </div>
+              </div>
+            </div>
+
+
+            <div class="col-12 col-md-6">
+
+              <div class="form-group">
+                <label for="exampleInputEmail1">confirm password</label>
+                <input type="password" class="form-control" aria-describedby="emailHelp"
+                  placeholder="Enter confirm password" #confirm_password="ngModel" name="confirm_password" minlength="6"
+                  maxlength="15" [(ngModel)]="user.confirm_password"
+                  [ngClass]="{ 'is-invalid': userForm.submitted && confirm_password.invalid }" required
+                  validateEqual="password" />
+                <div *ngIf="userForm.submitted && confirm_password.invalid" class="invalid-feedback">
+                  <div *ngIf="confirm_password.errors.required">confirm password is required</div>
+                  <div *ngIf="confirm_password.errors.appPasswordMatch">Passwords must match</div>
+
+                </div>
+
+              </div>
+
+
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-danger float-right"   >Add  User</button>
+
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

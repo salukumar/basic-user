@@ -1,0 +1,55 @@
+<div class="container-fluid p-3">
+
+
+   <div class="row">
+      <div class="col-md-6">
+     <input type="text"  class="form-control pb-2"  (keyup)="keyword$.next($event.target.value)"  placeholder="Search User">
+    </div>
+    <div class="col-md-6">
+        <button type="button" class="btn btn-outline-danger"   [routerLink]="['/add-user']" >Add New User</button>
+    </div>
+   </div>
+  <br>
+
+  
+<div class="text-center">
+  <app-loader [isLoading]="isLoading"  size="1.5"></app-loader><div class="container-fluid">
+ </div>
+  <table class="table">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">First</th>
+        <th scope="col">Last</th>
+        <th scope="col">Email</th>
+        <th scope="col">DOB</th>
+        <th scope="col">Username</th>
+        <th scope="col">Phone</th>
+        <th scope="col">Picture</th>
+      </tr>
+    </thead>
+    <tbody >
+      <ng-container *ngIf="(users$ | async); else noData">
+      <tr *ngFor="let user of users$ | async; let i = index"> 
+        <th scope="row">{{i + 1}}</th>
+        <td>{{user.name.title | titlecase}}</td>
+        <td>{{user.name.last}}</td>
+        <td>{{user.email}}</td>
+        <td>{{user.dob  | date}}</td>
+        <td>{{user.username}}</td>
+        <td>{{user.phone}}</td>
+        <td><img src={{user.picture.thumbnail}}></td>
+      </tr>
+    </ng-container>
+    </tbody>
+
+  <ng-template #noData>
+      <div class="text-center font-weight-bold">
+        No Results Found
+      </div>
+    </ng-template>
+  </table>
+  
+
+</div>
+</div>
